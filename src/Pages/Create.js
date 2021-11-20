@@ -1,40 +1,50 @@
-import React from "react";
-import { Typography, Container, Button, TextField } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
-
-const BootstrapButton = styled(Button)({
-  boxShadow: "none",
-  textTransform: "none",
-  border: "1px solid",
-  marginTop: '10px',
-  lineHeight: 1.5,
-  backgroundColor: "#0063cc",
-  borderColor: "#0063cc",
-  "&:hover": {
-    backgroundColor: "#0069d9",
-    borderColor: "#0062cc",
-    boxShadow: "none",
-  },
-  "&:active": {
-    boxShadow: "none",
-    backgroundColor: "#0062cc",
-    borderColor: "#005cbf",
-  },
-  "&:focus": {
-    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-  },
-});
-
-const useStyles = makeStyles({
-  root: {
-    marginTop: '20px',
-    marginBottom: '20px',
-  },
-});
+import React, { useState } from "react";
+import {
+  Typography,
+  Container,
+  Button,
+  TextField,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Box,
+} from "@mui/material";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
-  const classes = useStyles();
+  let navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [details, setDetails] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [detailsError, setDetailsError] = useState(false);
+  const [category, setCategory] = useState("money");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setTitleError(false);
+    setDetailsError(false);
+
+    if (title === "") {
+      setTitleError(true);
+    }
+    if (details === "") {
+      setDetailsError(true);
+    }
+
+    if (title && details && category) {
+      axios
+        .post("http://localhost:8000/notes", {
+          title,
+          details,
+          category,
+        })
+        .then(() => navigate("/"));
+    }
+  };
 
   return (
     <Container>
@@ -44,26 +54,75 @@ const Create = () => {
         component="div"
         color="text.secondary"
       >
-        ساختن یک نوت جدید
-      </Typography>                                                                                           
-      <form>
-        <TextField margin="normal" variant="outlined" label="عنوان" fullWidth sx={{textAlign: 'end'}} />                                      
-        <TextField                                                                                                                                                                                                                                                                                        
-          variant="outlined"
-          label="توضیحات"                                                                                                                                                                       
-          margin="normal"
-          fullWidth
-          multiline
-          rows={4}
-        />
-        <BootstrapButton
-          size="medium"
-          className={classes.root}
-          variant="contained"
-        >
-          ایجاد کردن
-        </BootstrapButton>
-      </form>
+        Create a New Note
+      </Typography>
+      <Box
+        sx={{
+          boxShadow: 1,
+          borderRadius: 4,
+          padding: 4,
+          marginTop: 5,
+        }}
+      >
+        <form onSubmit={submitHandler}>
+          <TextField
+            label="Title"
+            onChange={(e) => setTitle(e.target.value)}
+            error={titleError}
+            fullWidth
+            variant="outlined"
+            sx={{
+              margin: "15px auto 0",
+            }}
+          />
+          <TextField
+            label="Details"
+            onChange={(e) => setDetails(e.target.value)}
+            error={detailsError}
+            fullWidth
+            variant="outlined"
+            sx={{
+              margin: "15px auto ",
+            }}
+          />
+          <FormControl sx={{ display: "block", marginBottom: 3 }}>
+            <FormLabel>Note Categories</FormLabel>
+            <RadioGroup
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <FormControlLabel
+                value="money"
+                label="money"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                value="work"
+                label="work "
+                control={<Radio />}
+              />
+              <FormControlLabel
+                value="reminder"
+                label="reminder"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                value="todos"
+                label="todos"
+                control={<Radio />}
+              />
+            </RadioGroup>
+          </FormControl>
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            endIcon={<KeyboardArrowRightIcon />}
+          >
+            Submit
+          </Button>
+        </form>
+      </Box>
     </Container>
   );
 };

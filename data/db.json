@@ -1,0 +1,40 @@
+{
+  "notes": [
+    {
+      "title": "Order a pizza!",
+      "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "category": "todos",
+      "id": 3
+    },
+    {
+      "title": "sina's birthday",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lobortis scelerisque fermentum dui faucibus in ornare quam.",
+      "category": "work",
+      "id": 4
+    },
+    {
+      "title": "amin's birthday",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vulputate mi sit amet mauris. Tempus egestas sed sed risus pretium.",
+      "category": "reminder",
+      "id": 5
+    },
+    {
+      "title": "mir sina ghaffari ",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vulputate eu scelerisque felis imperdiet proin fermentum leo. Maecenas ultricies mi eget mauris pharetra et ultrices neque. Et odio pellentesque diam volutpat commodo. Diam phasellus vestibulum lorem sed risus.",
+      "category": "todos",
+      "id": 6
+    },
+    {
+      "title": "mir amin ghaffari",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vulputate eu scelerisque felis imperdiet proin fermentum leo. Maecenas ultricies mi eget mauris pharetra et ultrices neque. Et odio pellentesque diam volutpat commodo.",
+      "category": "money",
+      "id": 7
+    },
+    {
+      "title": "Iran revelation ",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vulputate eu scelerisque felis imperdiet proin fermentum leo. Maecenas ultricies mi eget mauris pharetra et ultrices neque. Et odio pellentesque diam volutpat commodo. Diam phasellus vestibulum lorem sed risus.",
+      "category": "work",
+      "id": 8
+    }
+  ]
+}

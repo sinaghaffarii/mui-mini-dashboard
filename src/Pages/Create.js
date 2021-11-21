@@ -10,13 +10,51 @@ import {
   FormControl,
   FormLabel,
   Box,
-} from "@mui/material";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { teal } from "@material-ui/core/colors";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles({
+  page: {
+    width: "100%",
+    height: "100%",
+  },
+  noteBox: {
+    marginTop: 10,
+    border: "2px dashed rgba(0 0 0 / 0.2)",
+    borderRadius: "10px",
+    padding: "15px",
+    backgroundColor: "#ffffff",
+    // boxShadow:
+    //   " rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
+  },
+  field: {
+    display: "block",
+    margin: "20px auto",
+  },
+  title: {
+    margin: "10px",
+  },
+  btn: {
+    backgroundColor: teal[500],
+    color: '#ffffff',
+    marginTop: "10px",
+    marginBottom: "10px",
+    '&:hover': {
+      backgroundColor: teal[600]
+    },
+    '&:active': {
+      backgroundColor: teal[400]
+    }
+  },
+});
 
 const Create = () => {
-  let navigate = useNavigate();
+  const classes = useStyles();
+  let history = useHistory();
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
@@ -42,50 +80,39 @@ const Create = () => {
           details,
           category,
         })
-        .then(() => navigate("/"));
+        .then(() => history.push("/"));
     }
   };
 
   return (
-    <Container>
+    <Container className={classes.page}>
       <Typography
-        marginTop="10px"
         variant="h5"
         component="div"
         color="text.secondary"
+        className={classes.title}
       >
         Create a New Note
       </Typography>
-      <Box
-        sx={{
-          boxShadow: 1,
-          borderRadius: 4,
-          padding: 4,
-          marginTop: 5,
-        }}
-      >
+      <Box className={classes.noteBox}>
         <form onSubmit={submitHandler}>
           <TextField
             label="Title"
             onChange={(e) => setTitle(e.target.value)}
+            className={classes.field}
             error={titleError}
             fullWidth
             variant="outlined"
-            sx={{
-              margin: "15px auto 0",
-            }}
           />
           <TextField
             label="Details"
             onChange={(e) => setDetails(e.target.value)}
+            className={classes.field}
             error={detailsError}
             fullWidth
             variant="outlined"
-            sx={{
-              margin: "15px auto ",
-            }}
           />
-          <FormControl sx={{ display: "block", marginBottom: 3 }}>
+          <FormControl className={classes.field}>
             <FormLabel>Note Categories</FormLabel>
             <RadioGroup
               value={category}
@@ -114,10 +141,10 @@ const Create = () => {
             </RadioGroup>
           </FormControl>
           <Button
-            color="secondary"
             variant="contained"
             type="submit"
             endIcon={<KeyboardArrowRightIcon />}
+            className={classes.btn}
           >
             Submit
           </Button>

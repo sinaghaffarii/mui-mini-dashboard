@@ -6,10 +6,10 @@ import {
   IconButton,
   Typography,
   Avatar,
-} from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { pink, blue, green, teal, purple } from "@mui/material/colors";
-import { makeStyles } from "@mui/styles";
+} from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles'
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import { pink, blue, green, teal, purple } from "@material-ui/core/colors";
 
 const useStayles = makeStyles({
   cardborder: {

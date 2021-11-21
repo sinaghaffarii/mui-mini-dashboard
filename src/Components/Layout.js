@@ -1,26 +1,30 @@
 import React from "react";
 import {
   Drawer,
-  Divider,
-  List,
   Typography,
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
-} from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import { useNavigate, useLocation  } from "react-router-dom";
-import { teal } from "@mui/material/colors";
+  AppBar,
+  Toolbar,
+  Avatar
+} from "@material-ui/core";
+import {  makeStyles } from '@material-ui/core/styles'
+import { useHistory, useLocation } from "react-router-dom";
+import { AddCircleOutlineOutlined, SubjectOutlined } from "@material-ui/icons";
+import { teal } from '@material-ui/core/colors'
+import Moment from "react-moment";
+import joker from '../assets/images/images.jpeg'
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => {
   return {
     page: {
-      width: "100%",
       background: "#f9f9f9",
+      width: "100%",
+      height: '100%',
       padding: theme.spacing(3),
     },
     root: {
@@ -32,56 +36,87 @@ const useStyles = makeStyles((theme) => {
     drawerPaper: {
       width: drawerWidth,
     },
+    active: {
+      background: teal[50],
+      borderRight: '2px solid teal'
+    },
     title: {
       padding: theme.spacing(2),
     },
-    active: {
-      borderRight: '2px solid teal',
-      background: teal[500],
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+      backgroundColor: teal[500]
     },
+    date: {
+      flexGrow: 1,
+    },
+    toolbar: theme.mixins.toolbar,
+    avatar: {
+      marginLeft: theme.spacing(2),
+    },
+    icon: {
+      color: teal[800]
+    }
   };
 });
 
 const Layout = ({ children }) => {
   const classes = useStyles();
-  const navigate = useNavigate();
-  const location = useLocation()
+  const history = useHistory();
+  const location = useLocation();
 
-  const menuItem = [
+  const menuItems = [
     {
-      text: "My notes",
-      icon: <SpeakerNotesIcon color="secondary" />,
+      text: "My Notes",
+      icon: <SubjectOutlined className={classes.icon}/>,
       path: "/",
     },
     {
-      text: "Create notes",
-      icon: <NoteAddIcon color="secondary" />,
+      text: "Create Note",
+      icon: <AddCircleOutlineOutlined className={classes.icon}/>,
       path: "/create",
     },
   ];
 
   return (
     <div className={classes.root}>
-      {/* // ---- App Bar  */}
+      {/* app bar */}
+      <AppBar
+        position="fixed"
+        className={classes.appBar}
+        elevation={0}
+      >
+        <Toolbar>
+          <Typography className={classes.date}>
+            Today is the <Moment format={"dddd"} />
+          </Typography>
+          <Typography>Sina Ghaffari</Typography>
+          <Avatar className={classes.avatar} src={joker} />
+        </Toolbar>
+      </AppBar>
 
-      {/* // ---- Side Drawer */}
+      {/* side drawer */}
       <Drawer
         className={classes.drawer}
-        anchor="left"
         variant="permanent"
         classes={{ paper: classes.drawerPaper }}
+        anchor="left"
       >
-        <Typography variant="h5" className={classes.title}>
-          Sina's Notes
-        </Typography>
-        <Divider />
+        <div>
+          <Typography variant="h5" className={classes.title}>
+            Ninja Notes
+          </Typography>
+        </div>
+
+        {/* links/list section */}
         <List>
-          {menuItem.map((item) => (
+          {menuItems.map((item) => (
             <ListItem
-              key={item.text}
-              onClick={() => navigate(item.path)}
-              className={location.pathname ==  item.path ? classes.active : null}
               button
+              key={item.text}
+              onClick={() => history.push(item.path)}
+              className={location.pathname === item.path ? classes.active : null}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
@@ -89,10 +124,15 @@ const Layout = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      {/* // ---- main Content */}
-      <div className={classes.page}>{children}</div>
+
+      {/* main content */}
+      <div className={classes.page}>
+        <div className={classes.toolbar}></div>
+        {children}
+      </div>
     </div>
   );
-};
+}
 
-export default Layout;
+
+export default Layout
